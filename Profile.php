@@ -1,0 +1,137 @@
+<?php require_once("Includes/DB.php"); ?>
+<?php require_once("Includes/Functions.php"); ?>
+<?php require_once("Includes/Sessions.php"); ?>
+
+<!-- Fetching Amdin data -->
+<?php
+global $ConnectingDB;
+$searchQueryParameter = $_GET["username"];
+$sql = "SELECT aname , aheadline, aimage, abio from admins where username=:uName ";
+$stmt = $ConnectingDB->prepare($sql);
+$stmt->bindValue(':uName', $searchQueryParameter);
+$stmt->execute();
+$resule = $stmt->rowCount();
+if ($resule == 1) {
+
+
+    while ($data = $stmt->fetch()) {
+        # code...
+        $adminName = $data['aname'];
+        $aheadline = $data['aheadline'];
+        $aimage = $data['aimage'];
+        $abio = $data['abio'];
+    }
+} else {
+    $_SESSION['errorMessage'] = 'حدث خطأ عند التنفيذ';
+    redirect_to("Blog.php?page=1");
+}
+?>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- // FontAwesome -->
+    <script src="https://kit.fontawesome.com/1ca8c65076.js" crossorigin="anonymous"></script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.5.3/css/bootstrap.min.css" integrity="sha384-JvExCACAZcHNJEc7156QaHXTnQL3hQBixvj5RV5buE7vgnNEzzskDtx9NQ4p6BJe" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <title>حساب المستخدم </title>
+</head>
+
+<body>
+
+    <div style="height:10px; background:#27aae1;"></div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a href="#" class="navbar-brand"> azmlan.com</a>
+            <button class="navbar-toggler" data-toggle="collapse" data-target="#navbarcollapseCMS">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarcollapseCMS">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a href="Blog.php?page=1" class="nav-link">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">من نحن</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="Blog.php?page=1" class="nav-link">المدونة</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">تواصل معنا</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">المميزات</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <form class="form-inline d-none d-sm-block" action="Blog.php">
+                        <div class="form-group">
+                            <input class="form-control ml-2" type="text" name="search" placeholder="ابحث هنا " value="">
+                            <button class="btn btn-primary" name="searchButton">بحث</button>
+                        </div>
+                    </form>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div style="height:10px; background:#27aae1;"></div>
+    <br>
+    <!-- Navbar Ends  -->
+    <!-- Header -->
+    <header class="bg-dark text-white py-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1> <i class="fas fa-user text-success" style="color: #27aae1;"></i> <?php echo $adminName; ?> </h1>
+                    <h3><?php echo $aheadline; ?></h3>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header End -->
+
+    <section class="container [y-2 mb-4">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- <img src="Images/<?php echo $aimage ?>" class="d-block img-fluid mb-3" alt=""> -->
+                <img src="Images/camelAvatar.png" class="d-block img-fluid mb-3" alt="">
+            </div>
+            <div class="col-md-9" style="min-height :550px;">
+                <div class="card">
+                    <div class="card-bpdy">
+                        <p class="lead"> <?php echo $abio; ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- Footer Start -->
+    <footer class="bg-dark text-white">
+        <div class="container ">
+            <div class="row">
+                <div class="col">
+                    <p class="lead text-center tt"> تم تطوير الموقع بواسطة | عبدالعزيز | <span id="year"></span> &copy; ----- جميع الحقوق محفوظة </p>
+                    <p class="text-center">
+                        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Recusandae asperiores eligendi corrupti odio, quisquam labore aliquam rerum! Ipsa, voluptates atque voluptate officia modi saepe quibusdam placeat quam error facere accusantium!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery and JS bundle w/ Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.rtlcss.com/bootstrap/v4.5.3/js/bootstrap.bundle.min.js" integrity="sha384-40ix5a3dj6/qaC7tfz0Yr+p9fqWLzzAXiwxVLt9dw7UjQzGYw6rWRhFAnRapuQyK" crossorigin="anonymous"></script>
+    <script>
+        $("#year").text(new Date().getFullYear());
+    </script>
+</body>
+
+</html>

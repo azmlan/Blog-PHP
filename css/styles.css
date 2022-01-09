@@ -1,0 +1,30 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@200;300;400;900&display=swap");
+
+a {
+  color: white;
+}
+body {
+  font-family: "Noto Kufi Arabic", sans-serif;
+  text-align: right;
+}
+.CommentBlock {
+  /* background-color: #f6f7f9; */
+  background-color: #000;
+}
+.FieldInfo {
+  color: rgb(251, 174, 44);
+  font-weight: 900;
+}
+.text-right {
+  text-align: right;
+}
+.heading {
+  font-weight: bold;
+  color: #005e90;
+}
+.heading:hover {
+  color: #0090db;
+}
+.pointer {
+  cursor: pointer;
+}
