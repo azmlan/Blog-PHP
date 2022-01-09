@@ -1,6 +1,4 @@
-https://www.php.net/docs.php
+# Blog Features
 
-timezone:
-https://www.php.net/manual/en/timezones.asia.php
-time format:
-https://www.php.net/manual/en/function.strftime.php
+- Content Managment System using PHP
+- CRUD
